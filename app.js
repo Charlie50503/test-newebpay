@@ -6,7 +6,12 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-require('dotenv').config({ path: '.env' })
+// async function addEnv(){
+  
+//   await require('dotenv').config({ path: '.env' })
+// }
+
+// addEnv()
 var app = express();
 
 // console.log(process.env);

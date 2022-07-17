@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <form >
+        
+      </form>
+    </div>
+    <script type="module">
+      import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.esm-browser.min.js';
+      const host = 'http://localhost:3000/'
+
+      const app = {
+        data(){
+          return {
+           orderId:''
+          }
+        },
+        async mounted(){
+          const searchUrl = new URLSearchParams(window.location.search)
+          this.orderId=searchUrl.get('order')
+          console.log(searchUrl.get('order'));
+          const url = `/order/${this.orderId}`
+
+          const res = await axios.get(url)
+        },
+        methods:{
+          
+        }
+
+      }
+
+      createApp(app).mount('#app')
+    </script>
+  </body>
+</html>

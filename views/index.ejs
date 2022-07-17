@@ -8,6 +8,7 @@
   <body>
     <div id="app">
       <form @submit.prevent="createOrder">
+        
         <div>Email
           <input type="email" v-model="order.Email">
         </div>
@@ -21,7 +22,7 @@
       </form>
     </div>
     <script type="module">
-      import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.27/vue.esm-bundler.min.js'
+      import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.esm-browser.min.js';
       const host = 'http://localhost:3000/'
 
       const app = {
@@ -39,6 +40,8 @@
             const url = '/createOrder'
             axios.post(url,this.order).then((result) => {
               console.log(result);
+              window.location.href=`/check/?order=${result.data.TimeStamp}`
+              
             }).catch((err) => {
               
             });
