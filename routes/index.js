@@ -58,8 +58,7 @@ router.get('/order/:id', (req, res, next) => {
   })
 })
 
-//確認一筆訂單
-router.get('/spgateway_return', (req, res, next) => {
+router.get('/spgateway_notify', (req, res, next) => {
   const data = req.body
   console.log("spgateway_notify:",data);
   res.end()
