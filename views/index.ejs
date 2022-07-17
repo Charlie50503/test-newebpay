@@ -2,19 +2,52 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   </head>
   <body>
-    <form action="https://core.spgateway.com/MPG/mpg_gateway" method="post">
-      <input type="text" name="MerchantID" value="MS1621866880">
-      <input type="hidden" name="TradeSha" value="D7A8D0B5D5EC6301D6142A1F18C463CAD065C7945935600D1B5E96FF43369C34">
-      <input type="hidden" name="TradeInfo" value="9b8b6fdeb0bd0a308a26cddfe79a39bde92042873d1feb49d2d18b227a703ea5b89cea3320679345ed19b7d13437a94c78549998929e0bb927cf0cf3658f636b1e1fcb3e97506ef7931c4cc2ac8c6474f73486a8617d2a1dada346475d8426483981121751ae70a14ae784d636b33b4038e4a9e8ba3c2f717aee03f518e13e323eb728dd06a9a79d3d85b2f109b7d3b9365e8aedefcdfcbe0101659287f0f2c5">
-      <input type="text" name="TimeStamp" value="1658056082">
-      <input type="text" name="Version" value="1.5">
-      <input type="text" name="MerchantOrderNo" value="1658056082">
-      <input type="text" name="Amt" value="49">
-      <input type="email" name="Email" value="cate50503@gmail.com">
-      <button type="submit">送出</button>
-    </form>
+    <div id="app">
+      <form @submit.prevent="createOrder">
+        <div>Email
+          <input type="email" v-model="order.Email">
+        </div>
+        <div>Amt
+          <input type="number" v-model.number="order.Amt">
+        </div>
+        <div>ItemDesc
+          <input type="text" v-model="order.ItemDesc">
+        </div>
+        <button type="submit">click</button>
+      </form>
+    </div>
+    <script type="module">
+      import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.27/vue.esm-bundler.min.js'
+      const host = 'http://localhost:3000/'
+
+      const app = {
+        data(){
+          return {
+            order:{
+              Email:'cate50503@gmail.com',
+              Amt:'1',
+              ItemDesc:'商品名稱'
+            }
+          }
+        },
+        methods:{
+          createOrder(){
+            const url = '/createOrder'
+            axios.post(url,this.order).then((result) => {
+              console.log(result);
+            }).catch((err) => {
+              
+            });
+          }
+        }
+
+      }
+
+      createApp(app).mount('#app')
+    </script>
   </body>
 </html>
