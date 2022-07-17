@@ -45,8 +45,29 @@ router.get('/order/:id', (req, res, next) => {
   console.log('---------');
   console.log(paramString);
 
-  const aesEncrypt = create_mpg_aes_encrypt(paramString)
-  res.json()
+  const aesEncrypt = create_mpg_aes_encrypt(order) // 交易資料
+  console.log(aesEncrypt);
+
+  const shaEncrypt = create_mpg_sha_encrypt(aesEncrypt) //驗證用
+  console.log('shaEncrypt ',shaEncrypt);
+  // create_mpg_sha_encrypt
+  res.json({
+    order,
+    aesEncrypt,
+    shaEncrypt
+  })
+})
+
+//確認一筆訂單
+router.get('/spgateway_return', (req, res, next) => {
+  const data = req.body
+  console.log("spgateway_notify:",data);
+  res.end()
+})
+router.get('/spgateway_return', (req, res, next) => {
+  const data = req.body
+  console.log("spgateway_return:",data);
+  res.end()
 })
 
 // 對應文件 P16：使用 aes 加密
