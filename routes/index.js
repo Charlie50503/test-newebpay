@@ -66,6 +66,7 @@ router.get('/spgateway_notify', (req, res, next) => {
 router.get('/spgateway_return', (req, res, next) => {
   const data = req.body
   console.log("spgateway_return:",data);
+  res.render('success', { title: 'Express' })
   res.end()
 })
 

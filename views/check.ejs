@@ -7,8 +7,9 @@
   </head>
   <body>
     <div id="app">
-      <form action="https://core.spgateway.com/MPG/mpg_gateway" method="post">
-        <input type="text" name="MerchantID" value="MS1621866880">
+      <!-- <form action="https://core.spgateway.com/MPG/mpg_gateway" method="post"> -->
+      <form action="https://ccore.spgateway.com/MPG/mpg_gateway" method="post">
+        <input type="text" name="MerchantID" value="MS139642518">
         <input type="hidden" name="TradeSha" :value="order.shaEncrypt">
         <input type="hidden" name="TradeInfo" :value="order.aesEncrypt">
         <input type="text" name="TimeStamp" :value="order.order.TimeStamp">
