@@ -62,13 +62,13 @@ router.post('/spgateway_notify', (req, res, next) => {
   const data = req.body
 
   console.log("spgateway_notify:",data);
-  // res.end()
+  res.end()
 })
 router.post('/spgateway_return', (req, res, next) => {
   const data = req.body
   console.log("spgateway_return:",data);
   res.render('success', { title: 'Express' })
-  res.end()
+  // res.end()
 })
 
 // 對應文件 P16：使用 aes 加密
