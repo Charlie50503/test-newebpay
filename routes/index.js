@@ -61,7 +61,7 @@ router.get('/order/:id', (req, res, next) => {
 router.get('/spgateway_notify', (req, res, next) => {
   const data = req.body
   console.log("spgateway_notify:",data);
-  res.end()
+  // res.end()
 })
 router.get('/spgateway_return', (req, res, next) => {
   const data = req.body
