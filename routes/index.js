@@ -6,6 +6,7 @@ const {MerchantID,Version,NotifyURL,ReturnURL,HashKey,HashId} = process.env
 const orders = {}
 /* GET home page. */
 
+
 const RespondType = 'JSON'
 router.get('/', function (req, res, next) {
   res.render('index', { title: 'Express' })
@@ -60,8 +61,13 @@ router.get('/order/:id', (req, res, next) => {
 
 router.post('/spgateway_notify', (req, res, next) => {
   const data = req.body
-
   console.log("spgateway_notify:",data);
+
+  const info = create_mpg_aes_decrypt(data.TradeInfo)
+  console.log('----------');
+  console.log('info',info.Result.MerchantOrderNo);
+  console.log(orders[info.Result.MerchantOrderNo])
+
   res.end()
 })
 router.post('/spgateway_return', (req, res, next) => {
@@ -86,6 +92,16 @@ function create_mpg_sha_encrypt(aesEncrypt) {
   const plainText = `HashKey=${HashKey}&${aesEncrypt}&HashIV=${HashId}`;
 
   return sha.update(plainText).digest('hex').toUpperCase();
+}
+
+// 將 aes 解密
+function create_mpg_aes_decrypt(TradeInfo) {
+  const decrypt = crypto.createDecipheriv('aes256', HashKey, HashId);
+  decrypt.setAutoPadding(false);
+  const text = decrypt.update(TradeInfo, 'hex', 'utf8');
+  const plainText = text + decrypt.final('utf8');
+  const result = plainText.replace(/[\x00-\x20]+/g, '');
+  return JSON.parse(result);
 }
 
 module.exports = router
