@@ -5,7 +5,18 @@ require('dotenv').config();
 const {MerchantID,Version,NotifyURL,ReturnURL,HashKey,HashId} = process.env
 const orders = {}
 /* GET home page. */
+const globalInfo = {
+  Status: 'SUCCESS',
+  MerchantID: 'MS139642518',
+  Version: '1.5',
+  TradeInfo:
+    '54abf8a4c38e9373a20240e4407f2e6cc2793424ca50a227f199a936daa58c0c0924672914a22dab599619f1de31c3b4dadb6d858575eb8d71045d2f39fd5fff5afe0d7269ca72a109406227e65543572df9bb8f306ec78a87aa5eaf42d082749368a7dce72732520016b141f472f64b6a114046f22481bc5b911465d6bdeddbe2307ea33159ce9f5f3a0d826c669118d1130e49b8a7c8fa7e52d2a8045a3db3bd995779cb736a30ba614cc2fb9d94d23b255f69c4961b50ebb7b5f152494538ef3579877152fb73a59fce98dc05c1761ddcdeef10c94663060ba58f2a1f39afd17ba13f974d418685901a6b48ebb0845036f9e8b27cab04cf688c621328a954697485aad952144ca7b7de88082f3352212657d42e2655b94240854817f057868bed81bef6e3e5df03f805858703e4b160346f3b15297b35123896e26caec06014e8a2f3b0b92355c431b472159b2355ecd2182b608872103fb1b5033b72b10a5eac8881076ec812f8b73643cdf9189d485cfc6bda79b864245df278c7aa9723211e689ade7b67c2be4239cb315b237992526bea35d4a7143bff7e5dd37ec8a1f9d046a7e26f068d143d49a1b4a097e54107cc0b87430b839a6e7161f201a7024e2a48d7f6663776c2a6e8c2b9757ca9755e9bf954e09a1127997761dd3686a9c942e10183a0a9af4f6a225e513e083c1655a6a755711dcaab7be92f4ae5e5e3',
+  TradeSha: 'B0197716D1A004A9F5FB8B0253CA47C340E09D2DA18AD8678055BDE6B8454F11',
+};
 
+const deInfo = create_mpg_aes_decrypt(globalInfo.TradeInfo)
+
+console.log(deInfo);
 
 const RespondType = 'JSON'
 router.get('/', function (req, res, next) {
@@ -65,7 +76,7 @@ router.post('/spgateway_notify', (req, res, next) => {
 
   const info = create_mpg_aes_decrypt(data.TradeInfo)
   console.log('----------');
-  console.log('info',info.Result.MerchantOrderNo);
+  console.log('info',info);
   console.log(orders[info.Result.MerchantOrderNo])
 
   res.end()
